@@ -1,0 +1,29 @@
+local UIS = game:GetService("UserInputService")
+game.StarterGui:SetCore("SendNotification", {
+        Title = "Status";
+        Text = "Press Q to fill up your hunger bar!";
+        Icon = "http://www.roblox.com/asset/?id=2691749281";
+        Delay = "3";
+    })
+local function eatfood()
+    local plr = game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
+    print("1")
+    local previous_pos = plr:GetPivot()
+    plr.Humanoid.WalkSpeed = 0
+    for i,v in pairs(game.Workspace:GetDescendants()) do
+        if v.ClassName == "Part" and v.Name == "Apple" then
+            plr:PivotTo(v.CFrame)
+            wait()
+        end
+    end
+    wait(1)
+    plr:PivotTo(previous_pos)
+    wait(.5)
+    plr.Humanoid.WalkSpeed = 16
+end
+
+UIS.InputBegan:Connect(function(key,_)
+    if key.KeyCode == Enum.KeyCode.Q then
+        eatfood()
+    end
+end)
